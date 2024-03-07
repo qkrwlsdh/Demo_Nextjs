@@ -4,6 +4,8 @@ import Navigation from "../../components/navigation";
 import { data } from "cheerio/lib/api/attributes";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Movie from "../../components/movie";
+import styles from "../../styles/home.module.css"
 const cheerio = require('cheerio');
 
 export const metadata = {
@@ -24,12 +26,15 @@ export default async function HomePage() {
     const movies = await getMovies();
 
     return (
-    <div>
-        {movies.map(movie =>
-        <li key={movie.id}>
-            <Link href={`/movies/${movie.id}`}>{movie.title}</Link>
-        </li>
-        )}
+    <div className={styles.container}>
+        {movies.map(movie => (
+            <Movie
+                key={movie.id}
+                id={movie.id}
+                poster_path={movie.poster_path}
+                title={movie.title}
+            />
+        ))}
     </div>
     )
 }
